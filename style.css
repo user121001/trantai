@@ -11,7 +11,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
-body {
+.flex {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,7 +86,7 @@ img {
 }
 
 .card.shake {
-    animation: shake 0.35s ease-in-out;
+    animation: shake 0.25s ease-in-out;
 }
 
 @keyframes shake {
@@ -167,7 +167,7 @@ img {
 }
 
 .card.time-out .back-view{
-    opacity: 0.75;
+    opacity: 0.5;
     box-shadow: 0 0 0 0 #000;
 }
 
