@@ -8,23 +8,45 @@
     <title>Document</title>
     <link rel="stylesheet" href="./icofont/icofont.min.css">
     <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
+    <div style="text-align: center;">
     <select id="capanh" oninput="setSpeed();">
-        <option value="1">[1]</option>
-        <option value="2">[2]</option>
+        <option class="time30" value="1">đấu la đại lục</option>
+        <option class="time35" selected="selected" value="2">Âm Dương Sư</option>
+        <option value="3">Vạn Giới Tiên Tung</option>
+        <option value="4">tuyet the vo than</option>
+        <option value="5">Bách luyện thành thần</option>
+        <option value="6">Nghịch Thiên Chí Tôn</option>
+        <option value="7">nghich thien chi ton</option>
+        <option value="8">Bách Luyện Thành Thần</option>
+        <option value="9">nghịch thiên chí tôn</option>
+        <option value="10">Nghich Thien Chi Ton</option>
         </select>
-        đếm ngược<select id="demnguoc">
+        đếm ngược<select id="demnguoc" oninput="setSpeed2();">
             <option value="1">có</option>
             <option value="2">không</option>
             </select>
+            <script>
+function sortSelect(selElem) {
+  const tmpAry = [...selElem.options];
+  tmpAry.sort((optionA, optionB) => optionA.textContent.localeCompare(optionB.textContent, 'en-u-kn-true'));
+  for (const option of tmpAry) {
+    selElem.appendChild(option);
+  }
+}
+sortSelect(document.querySelector("#capanh"));
+            </script>
+            </div>
+            <div class="flex">
     <main class="wrapper">
         
         <ul class="cards"></ul>
         <div class="details">
             <p class="time">
-                Time remaining: <span></span>
+                Thời gian: <span></span>
             </p>
             <p class="flips">
                 Flips: <span></span>
@@ -36,7 +58,7 @@
             <img src="./img/badge.png" alt="">
             <span class="date">Fri Jul 15 2022</span>
             <p class="time">
-                Time remaining: <span>22.2s</span>
+                Thời gian: <span></span>
             </p>
             <p class="flips">
                 Flips: <span>10</span>
@@ -44,7 +66,7 @@
         </div>
         
     </main>
-
+</div>
     <script src="./app.js"></script>
 </body>
 
