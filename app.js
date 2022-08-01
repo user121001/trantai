@@ -11,10 +11,22 @@ function randomArrayNumber(totalPhotos){
     }
     return random
 }
+function randomArrayNumber(totalPhotos2){
+    const random = []
+    while (random.length < totalPhotos2 * 2) {
+        let numberRandom = Math.floor(Math.random() * totalPhotos2 + 1)
+    
+        if(random.filter(number => number === numberRandom).length < 2){
+            random.push(numberRandom)
+        }
+    }
+    return random
+}
 
 const cards = document.querySelector('.cards')
 const flipTime = 0.1
-const totalPhotos = 9
+const totalPhotos = 8
+const totalPhotos2 = 9
 
 // render card
 function renderCard(){
@@ -34,14 +46,14 @@ function renderCard(){
 }
 function renderCard2(){
     cards.innerHTML = ''
-    randomArrayNumber(totalPhotos).forEach(number => {
+    randomArrayNumber(totalPhotos2).forEach(number => {
         cards.insertAdjacentHTML('beforeend', `
             <li style="transition: ${flipTime}s ease-in-out;" class="card rotate0">
                 <div onclick="clickFontView(this)" class="view front-view">
                     <i class="icofont-question"></i>
                 </div>
                 <div class="view back-view">
-                    <img src="https://raw.githubusercontent.com/TrongNam138/Matching-Game/master/img/${number}.jpg" alt="">
+                    <img src="./img2/${number}.jpg" alt="">
                 </div>
             </li>
         `)
@@ -49,40 +61,53 @@ function renderCard2(){
 }
 var capanh = document.getElementById('capanh');
 
-renderCard();
+renderCard2();
 function setSpeed() { 
 if (capanh.value == 1){
     renderCard();
     firstCard = 1
     secondCard = 2
     flips = 0
-    time = timeMax
+    time = 30
+    counttime = 0
     click = 0
     correct = 0
     spanTime.innerHTML = time + 's'
     spanFlips.innerHTML = flips
     clearInterval(countdown)
     countdown = ''
+    if(document.getElementById("demnguoc").value == 1){
+        spanTime.innerHTML = time + 's'
+    }else if (document.getElementById("demnguoc").value == 2){
+        spanTime.innerHTML = counttime + 's'
+       }
 }else if (capanh.value == 2){
     renderCard2();
     firstCard = 1
     secondCard = 2
     flips = 0
-    time = timeMax
+    time = 35
+    counttime = 0
     click = 0
     correct = 0
     spanTime.innerHTML = time + 's'
     spanFlips.innerHTML = flips
     clearInterval(countdown)
     countdown = ''
+    if(document.getElementById("demnguoc").value == 1){
+        spanTime.innerHTML = time + 's'
+    }else if (document.getElementById("demnguoc").value == 2){
+        spanTime.innerHTML = counttime + 's'
+       }
 }
 }
 
 let firstCard = 1
 let secondCard = 2
 let flips = 0
-let timeMax = 30
-let time = timeMax
+//let timeMax = 30
+let counttime = 0
+let time = 35;
 let click = 0
 let correct = 0
 
@@ -91,7 +116,7 @@ const spanFlips = document.querySelector('.details .flips span')
 const achievementTime = document.querySelector('.achievement .time span')
 const achievementFlips = document.querySelector('.achievement .flips span')
 const achievementDate = document.querySelector('.achievement .date')
-spanTime.innerHTML = time + 's'
+spanTime.innerHTML = 35 + 's'
 spanFlips.innerHTML = flips
 let countdown = ''
 
@@ -138,38 +163,17 @@ function clickFontView(_this){
             if(firstSrc === secondSrc)
             {
                 correct++
-                if(correct == totalPhotos){
-                    clearInterval(countdown)
-                    // lưu thành tích
-                    const achievement = JSON.parse(localStorage.getItem('achievement'))
-
-                    if(achievement === null){
-                        localStorage.setItem('achievement', JSON.stringify(
-                            {date: new Date().toDateString(), time: time.toFixed(1), flips }
-                        ))
-
-                    }else{
-                        if(time.toFixed(1) > achievement.time){
-                            localStorage.setItem('achievement', JSON.stringify(
-                                {date: new Date().toDateString(), time: time.toFixed(1), flips }
-                            ))
-                        }else if(time.toFixed(1) == achievement.time){
-                            if(flips < achievement.flips){
-                                localStorage.setItem('achievement', JSON.stringify(
-                                    {date: new Date().toDateString(), time: time.toFixed(1), flips }
-                                ))
-                            }
-                        }
+                if (capanh.value == 2){
+                    if(correct == totalPhotos2)
+                    {
+                        clearInterval(countdown)
                     }
-
-                    const getAchievement = JSON.parse(localStorage.getItem('achievement'))
-                    achievementDate.innerHTML = getAchievement.date
-                    achievementTime.innerHTML = getAchievement.time + 's'
-                    achievementFlips.innerHTML = getAchievement.flips
-                    document.querySelector('.achievement').classList.add('show')
-
-                    
-                } 
+                }else if (capanh.value == 1){
+                    if(correct == totalPhotos)
+                    {
+                        clearInterval(countdown)
+                    }
+                }
 
                 firstCard = 1
                 secondCard = 2
@@ -219,7 +223,7 @@ function clickFontView(_this){
             if(time <= 0)
             {
                 clearInterval(countdown)
-                spanTime.innerHTML = 0 + '.0s'
+                spanTime.innerHTML = 0 + 's'
 
                 cards.querySelectorAll('.card.rotate0').forEach(card =>{
                     card.classList.replace('rotate0', 'time-out')
@@ -232,25 +236,74 @@ function clickFontView(_this){
     }
 }else if (document.getElementById("demnguoc").value == 2)
 {
+if(flips === 1){
+    countdown = setInterval(()=>{
+        counttime += 0.1
+        spanTime.innerHTML = counttime.toFixed(1) + 's'
 
+        // hết giờ
+        if (capanh.value == 2){
+        if(correct == totalPhotos2)
+        {
+            clearInterval(countdown)
+        }
+    }else if (capanh.value == 1){
+        if(correct == totalPhotos)
+        {
+            clearInterval(countdown)
+        }
+    }
+        
+    }, 100)
+}
 }
 
    return
 }
-
-document.querySelector('.refresh').onclick = function(){
-    if (capanh.value == 1){
+function setSpeed2(){
+       if (capanh.value == 1){
         renderCard();
+        time = 30;
+
     }else if (capanh.value == 2){
         renderCard2();
+        time = 35;
     }
     firstCard = 1
     secondCard = 2
     flips = 0
-    time = timeMax
+    counttime = 0
     click = 0
     correct = 0
+if(document.getElementById("demnguoc").value == 1){
     spanTime.innerHTML = time + 's'
+}else if (document.getElementById("demnguoc").value == 2){
+    spanTime.innerHTML = counttime + 's'
+   }
+    spanFlips.innerHTML = flips
+    clearInterval(countdown)
+    countdown = '' 
+}
+document.querySelector('.refresh').onclick = function(){
+    if (capanh.value == 1){
+        renderCard();
+        time = 30;
+
+    }else if (capanh.value == 2){
+        renderCard2();
+        time = 35;
+    }
+    firstCard = 1
+    secondCard = 2
+    flips = 0
+    counttime = 0
+    click = 0
+    correct = 0
+if(document.getElementById("demnguoc").value == 1){
+    spanTime.innerHTML = time + 's'
+}else if (document.getElementById("demnguoc").value == 2){
+    spanTime.innerHTML = counttime + 's'
+   }
     spanFlips.innerHTML = flips
     clearInterval(countdown)
     countdown = ''
