@@ -49,6 +49,16 @@ sortSelect(document.querySelector("#capanh"));
 $(function(){
   $("#capanh").select2();
  }); 
+                
+// set font-size to 16px to prevent zoom 
+input.addEventListener("mousedown", function (e) {
+  e.target.style.fontSize = "16px";
+});
+
+// change font-size back to its initial value so the design will not break
+input.addEventListener("focus", function (e) {
+  e.target.style.fontSize = "";
+});
             </script>
             </div>
             <div class="flex">
