@@ -11,22 +11,22 @@ function randomArrayNumber(totalPhotos){
     }
     return random
 }
-function randomArrayNumber(totalPhotos2){
-    const random = []
-    while (random.length < totalPhotos2 * 2) {
-        let numberRandom = Math.floor(Math.random() * totalPhotos2 + 1)
+// function randomArrayNumber(totalPhotos2){
+//     const random = []
+//     while (random.length < totalPhotos2 * 2) {
+//         let numberRandom = Math.floor(Math.random() * totalPhotos2 + 1)
     
-        if(random.filter(number => number === numberRandom).length < 2){
-            random.push(numberRandom)
-        }
-    }
-    return random
-}
+//         if(random.filter(number => number === numberRandom).length < 2){
+//             random.push(numberRandom)
+//         }
+//     }
+//     return random
+// }
 
-const cards = document.querySelector('.cards')
-const flipTime = 0.1
-const totalPhotos = 8
-const totalPhotos2 = 9
+const cards = document.querySelector('.cards');
+const flipTime = 0.1;
+const totalPhotos = 8;
+const totalPhotos2 = 9;
 
 // render card
 function renderCard(){
@@ -60,45 +60,31 @@ function renderCard2(){
     })
 }
 var capanh = document.getElementById('capanh');
+var getcapcanh = document.querySelector('option');
 
 renderCard2();
 function setSpeed() { 
 if (capanh.value == 1){
-    renderCard();
-    firstCard = 1
-    secondCard = 2
-    flips = 0
-    time = 30
-    counttime = 0
-    click = 0
-    correct = 0
-    spanTime.innerHTML = time + 's'
-    spanFlips.innerHTML = flips
-    clearInterval(countdown)
-    countdown = ''
-    if(document.getElementById("demnguoc").value == 1){
-        spanTime.innerHTML = time + 's'
-    }else if (document.getElementById("demnguoc").value == 2){
-        spanTime.innerHTML = counttime + 's'
-       }
+renderCard();
+time = 30
 }else if (capanh.value == 2){
-    renderCard2();
-    firstCard = 1
-    secondCard = 2
-    flips = 0
-    time = 35
-    counttime = 0
-    click = 0
-    correct = 0
-    spanTime.innerHTML = time + 's'
-    spanFlips.innerHTML = flips
-    clearInterval(countdown)
-    countdown = ''
-    if(document.getElementById("demnguoc").value == 1){
-        spanTime.innerHTML = time + 's'
-    }else if (document.getElementById("demnguoc").value == 2){
-        spanTime.innerHTML = counttime + 's'
-       }
+renderCard2();
+time = 35
+}
+firstCard = 1
+secondCard = 2
+flips = 0
+counttime = 0
+click = 0
+correct = 0
+spanTime.innerHTML = time + 's'
+spanFlips.innerHTML = flips
+clearInterval(countdown)
+countdown = ''
+if(document.getElementById("demnguoc").value == 1){
+spanTime.innerHTML = time + 's'
+}else if (document.getElementById("demnguoc").value == 2){
+spanTime.innerHTML = counttime + 's'
 }
 }
 
@@ -308,11 +294,4 @@ if(document.getElementById("demnguoc").value == 1){
     clearInterval(countdown)
     countdown = ''
 }
-
-
-
-
-
-
-
 
